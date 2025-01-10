@@ -33,8 +33,11 @@ def cachefunc(
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             
-            cache_args = args[1:] if args else ()  # Skip the first arg (self)
-            
+            if skip_self:
+                cache_args = args[1:] if args else ()  # Skip the first arg (self)
+            else:
+                cache_args = args
+                
             # Create a unique cache key by combining function name and arguments
             cache_key = f"data:{func.__module__}:{func.__name__}:"
             

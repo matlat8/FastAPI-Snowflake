@@ -16,8 +16,8 @@ async def read_root(sf: SnowflakeConn):
 @app.get("/login")
 async def login(sf: SnowflakeConn):
     """
-    Example route to demonstrate the dependency injection
-    of the Snowflake connection when it only needs to authenticate
+    Example route to demonstrate the latency
+    of the Snowflake connection from only connection instantiation
     """
     await sf._auth()
     return {"status": "ok"}
@@ -26,7 +26,7 @@ async def login(sf: SnowflakeConn):
 async def this_gets_cached(sf: SnowflakeConn):
     """
     Example route to demonstrate the dependency injection
-    of the Snowflake connection when it only needs to authenticate
+    of the Snowflake connection with caching
     """
     data = await sf.fetchall('SELECT CURRENT_TIMESTAMP()')
     return {"data": data}

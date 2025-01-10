@@ -23,6 +23,9 @@ class Snowflake:
         
         self._authed = False
         self._conn = None
+        
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._conn.close()
 
     async def _auth(self):
         if not self._authed:
